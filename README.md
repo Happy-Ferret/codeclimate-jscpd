@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/masone/codeclimate-jscpd.svg?branch=master)](https://travis-ci.org/masone/codeclimate-jscpd)
+
 # Code Climate jscpd engine
 
 `codeclimate-jscpd` is a Code Climate engine that wraps [jscpd](https://www.npmjs.com/package/jscpd). 
