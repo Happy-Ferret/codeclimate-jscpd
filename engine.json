@@ -1,0 +1,10 @@
+{
+  "name": "jscpd",
+  "description": "Duplicate code (copy/paste) detector for programming code, support JavaScript, CoffeeScript, PHP, Ruby, Python, Less, Go, Java, C#, C++, C languages",
+  "maintainer": {
+    "name": "Christian Felder",
+    "email": "ema@rh-productions.ch"
+  },
+  "version": "0.0.1",
+  "spec_version": "0.1"
+}

@@ -1,0 +1,4 @@
+.DS_Store
+.rvmrc
+node_modules
+bin/jscpd_dev

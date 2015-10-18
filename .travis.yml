@@ -1,0 +1,7 @@
+language: ruby
+cache: bundler
+before_script:
+  - npm install jscpd -g
+rvm:
+  - 2.1.7
+  - 2.2.3
