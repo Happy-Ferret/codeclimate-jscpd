@@ -12,3 +12,7 @@ Jscpd is a duplicate code (copy/paste) detector for programming code. It support
 1. If you haven't already, [install the Code Climate CLI](https://github.com/codeclimate/codeclimate).
 2. Run `codeclimate engines:enable jscpd`. This command both installs the engine and enables it in your `.codeclimate.yml` file.
 3. You're ready to analyze! Browse into your project's folder and run `codeclimate analyze`.
+
+### Configuration
+
+`codeclimate-jscpd` will respect the `.cpd.yaml` if present in your project directory. Otherwise its default options apply.
