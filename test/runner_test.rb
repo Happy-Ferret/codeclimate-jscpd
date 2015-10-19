@@ -19,14 +19,6 @@ module CC
                 Runner.new(directory: 'foo', engine_config: { 'include_paths' => ['bar/'] }, io: mock_io).call
               end
             end
-            it 'raises when output in Tempfile is empty' do
-              Open3.expects(:popen3).returns([stub(gets: nil), stub(gets: nil), stub(gets: nil)])
-              Tempfile.any_instance.expects(:read).returns('')
-
-              assert_raises SystemExit do
-                Runner.new(directory: 'foo', engine_config: { 'include_paths' => ['bar/'] }, io: mock_io).call
-              end
-            end
             it 'reports issue json to console' do
               Open3.expects(:popen3).returns([stub(gets: nil), stub(gets: nil), stub(gets: nil)])
               Tempfile.any_instance.expects(:read).returns(output)

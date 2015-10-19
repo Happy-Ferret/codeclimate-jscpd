@@ -34,7 +34,7 @@ module CC
             abort "Jscpd command failed - #{err}: #{cmd}"
           else
             output = @output_file.read
-            abort 'Jscpd returned empty output' if output.empty?
+            return if output.empty?
             process_results(output)
           end
         end
