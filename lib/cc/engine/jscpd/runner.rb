@@ -13,7 +13,6 @@ module CC
           @include_paths = engine_config['include_paths'] || []
           @min_tokens = engine_config['min_tokens'] || 70
           @min_lines = engine_config['min_lines'] || 5
-          @output_file = Tempfile.new('jscpd')
 
           @io = io
         end
@@ -28,15 +27,18 @@ module CC
         private
 
         def run_command(path)
-          cmd = command(path)
+          output_file = Tempfile.new("jscpd-#{path.hash}")
+          cmd = command(path, output_file)
           _stdin, _stdout, stderr = Open3.popen3(cmd, chdir: @directory)
           if (err = stderr.gets)
-            abort "Jscpd command failed - #{err}: #{cmd}"
+            abort "Jscpd command failed. Command: #{cmd} - Error: #{err}"
           else
-            output = @output_file.read
+            output = output_file.read
             return if output.empty?
             process_results(output)
           end
+        ensure
+          output_file.close!
         end
 
         def process_results(output)
@@ -54,8 +56,8 @@ module CC
           @io.puts "#{issue.to_json}\0"
         end
 
-        def command(path)
-          "jscpd --path #{path} --reporter json -o #{@output_file.path} -t #{@min_tokens} -l #{@min_lines}"
+        def command(path, output_file)
+          "jscpd --path #{path} --reporter json -o #{output_file.path} -t #{@min_tokens} -l #{@min_lines}"
         end
       end
     end
