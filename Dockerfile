@@ -1,10 +1,10 @@
-FROM mhart/alpine-node
+FROM codeclimate/alpine-ruby:b38
 
 WORKDIR /usr/src/app
 COPY Gemfile /usr/src/app/
 COPY Gemfile.lock /usr/src/app/
 
-RUN apk --update add git ruby ruby-dev ruby-bundler python g++ make && \
+RUN apk --update add nodejs ruby ruby-dev ruby-bundler make g++ && \
     bundle install -j 4 && \
     npm install jscpd -g && \
     apk del make g++ && rm -fr /usr/share/ri
