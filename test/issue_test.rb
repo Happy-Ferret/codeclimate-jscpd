@@ -25,6 +25,9 @@ module CC
             it 'has a description' do
               refute_nil issue_json['description']
             end
+            it 'has a content' do
+              refute_nil issue_json['content']
+            end
             it 'has category Complexity' do
               assert_equal ['Duplication'], issue_json['categories']
             end
