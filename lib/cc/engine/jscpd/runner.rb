@@ -49,11 +49,19 @@ module CC
         end
 
         def check_result(result)
-          lines = result['lines']
-          start = result['firstFile']['start']
-          path = result['firstFile']['name']
-          issue = Issue.new(path: path, start: start, lines: lines)
+          params = issue_params(result)
+          issue = Issue.new(params)
           @io.puts "#{issue.to_json}\0"
+        end
+
+        def issue_params(result)
+          {
+            path: result['firstFile']['name'],
+            other_path: result['secondFile']['name'],
+            start: result['firstFile']['start'],
+            other_start: result['secondFile']['start'],
+            lines: result['lines']
+          }
         end
 
         def command(path, output_file)

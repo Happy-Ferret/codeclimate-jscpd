@@ -4,9 +4,11 @@ module CC
   module Engine
     module Jscpd
       class Issue
-        def initialize(path:, start:, lines:)
+        def initialize(path:, other_path:, start:, other_start:, lines:)
           @path = path
+          @other_path = other_path
           @start = start
+          @other_start = other_start
           @lines = lines
         end
 
@@ -15,21 +17,27 @@ module CC
                         check_name: 'Code duplication',
                         description: 'Duplicate code detected.',
                         categories: ['Duplication'],
-                        content: content,
-                        location: {
-                          path: @path,
-                          lines: {
-                            begin: @start,
-                            end: @start + @lines
-                          }
-                        }
+                        content: CONTENT,
+                        location: location(@path, @start, @lines),
+                        other_locations: [
+                          location(@other_path, @other_start, @lines)
+                        ]
                        )
         end
 
         private
 
-        def content
-          <<-CONTENT.gsub(/^ {10}/, '')
+        def location(path, start, lines)
+          {
+            path: path,
+            lines: {
+              begin: start,
+              end: start + lines
+            }
+          }
+        end
+
+        CONTENT = <<-CONTENT.gsub(/^ {10}/, '')
           Duplicated code can lead to software that is hard to understand and difficult to change. The Don't Repeat Yourself (DRY) principle states:
 
           Every piece of knowledge must have a single, unambiguous, authoritative representation within a system.
@@ -50,8 +58,7 @@ module CC
           * [Don't Repeat Yourself](http://c2.com/cgi/wiki?DontRepeatYourself) on the C2 Wiki
           * [Duplicated Code on SourceMaking](https://sourcemaking.com/refactoring/smells/duplicate-code)
           * ["Refactoring: Improving the Design of Existing Code"](http://www.amazon.com/gp/product/0201485672/), Duplicated Code, p76 - Martin Fowler et. al.
-          CONTENT
-        end
+        CONTENT
       end
     end
   end
