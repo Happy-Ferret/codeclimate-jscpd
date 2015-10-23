@@ -16,3 +16,29 @@ Jscpd is a duplicate code (copy/paste) detector for programming code. It support
 ### Configuration
 
 `codeclimate-jscpd` will respect the `.cpd.yaml` if present in your project directory. Otherwise its default options apply.
+
+### Development
+
+#### Resources
+ 
+* Howto: http://blog.codeclimate.com/blog/2015/07/07/build-your-own-codeclimate-engine/
+* Spec: https://github.com/codeclimate/spec
+
+#### Local testing
+
+Build docker container
+```
+docker build --rm -t codeclimate/codeclimate-jscpd .
+```
+
+Enable engine in .codeclimate.yml (on any local project)
+```
+engines:
+  jscpd:
+    enabled: true
+```
+
+Run engine
+```
+codeclimate analyze --dev
+```
